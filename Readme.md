@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Anton Chuvirau](https://up.htmlacademy.ru/javascript/21/user/81254).
-* Наставник: `Неизвестно`.
+* Наставник: `Роман Макаров`.
 
 ---
 
