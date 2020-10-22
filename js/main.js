@@ -18,5 +18,14 @@ function generateNumber (min, max) {
 function generateArray () {
   const results = [];
 
+  for (let i=0; i<=COUNT; i++) {
+    results.push({
+      url: `photos/${i}.jpg`,
+      description: `описание фотографии`,
+      likes: generateNumber(15, 200),
+      comments: generateComments()
+    });
+  }
 
+  return results;
 }
