@@ -9,6 +9,8 @@ const parentEl = document.querySelector(`.pictures`);
 const templateEl = document.querySelector(`#picture`).content;
 const data = generateArray();
 
+createDOMElements();
+
 function generateNumber(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -19,7 +21,7 @@ function generateNumber(min, max) {
 function generateArray() {
   const results = [];
 
-  for (let i = 0; i <= QUANTITY; i++) {
+  for (let i = 1; i <= QUANTITY; i++) {
     results.push({
       url: `photos/${i}.jpg`,
       description: `описание фотографии`,
