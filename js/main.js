@@ -8,17 +8,17 @@ const fragment = document.createDocumentFragment();
 const parentEl = document.querySelector('.pictures');
 const templateEl = document.querySelector('#picture').content;
 
-function generateNumber (min, max) {
+function generateNumber(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
 
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function generateArray () {
+function generateArray() {
   const results = [];
 
-  for (let i=0; i<=COUNT; i++) {
+  for (let i = 0; i <= COUNT; i++) {
     results.push({
       url: `photos/${i}.jpg`,
       description: `описание фотографии`,
@@ -28,4 +28,22 @@ function generateArray () {
   }
 
   return results;
+}
+
+function generateComments() {
+  const comments = [];
+
+  for (let i = 0; i < 6; i++) {
+    const avatarIndex = generateNumber(1, 6);
+    const messageIndex = generateNumber(0, 5);
+    const nameIndex = generateNumber(0, 5);
+
+    comments.push({
+      avatar: `img/avatar-${avatarIndex}.svg`,
+      message: MESSAGES[messageIndex],
+      name: NAMES[nameIndex]
+    });
+  }
+
+  return comments;
 }
