@@ -28,6 +28,7 @@ const objectsQuantity = 25;
 const fragment = document.createDocumentFragment();
 const parentEl = document.querySelector(`.pictures`);
 const templateEl = document.querySelector(`#picture`).content;
+const bigPictureEl = document.querySelector(`.big-picture`);
 const data = generateArray();
 
 createDOMElements();
