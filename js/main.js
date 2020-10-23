@@ -32,6 +32,7 @@ const bigPictureEl = document.querySelector(`.big-picture`);
 const data = generateArray();
 
 createDOMElements();
+bigPictureEl.classList.remove(`hidden`);
 
 function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
