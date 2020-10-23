@@ -1,13 +1,13 @@
 'use strict';
 
-const names = [
+const NAMES = [
   `Антон`,
   `Сергей`,
   `Дима`,
   `Павел`,
   `Иван`
 ];
-const messages = [
+const MESSAGES = [
   `Всё отлично!`,
   `В целом всё неплохо. Но не всё.`,
   `Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.`,
@@ -15,16 +15,16 @@ const messages = [
   `Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.`,
   `Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!`
 ];
-const namesRangeStartNumber = 0;
-const namesRangeEndNumber = 5;
-const messagesRangeStartNumber = 0;
-const messagesRangeEndNumber = 5;
-const avatarsRangeStartNumber = 1;
-const avatarsRangeEndNumber = 6;
-const likesRangeStartNumber = 15;
-const likesRangeEndNumber = 200;
-const commentsQuantity = 6;
-const objectsQuantity = 25;
+const NAMES_RANGE_START_NUMBER = 0;
+const NAMES_RANGE_END_NUMBER = 5;
+const MESSAGES_RANGE_START_NUMBER = 0;
+const MESSAGES_RANGE_END_NUMBER = 5;
+const AVATARS_RANGE_START_NUMBER = 1;
+const AVATARS_RANGE_END_NUMBER = 6;
+const LIKES_RANGE_START_NUMBER = 15;
+const LIKES_RANGE_END_NUMBER = 200;
+const COMMENTS_QUANTITY = 6;
+const OBJECTS_QUANTITY = 25;
 const fragment = document.createDocumentFragment();
 const parentEl = document.querySelector(`.pictures`);
 const templateEl = document.querySelector(`#picture`).content;
@@ -46,11 +46,11 @@ function generateRandomNumber(min, max) {
 function generateArray() {
   const results = [];
 
-  for (let i = 1; i <= objectsQuantity; i++) {
+  for (let i = 1; i <= OBJECTS_QUANTITY; i++) {
     results.push({
       url: `photos/${i}.jpg`,
       description: `описание фотографии`,
-      likes: generateRandomNumber(likesRangeStartNumber, likesRangeEndNumber),
+      likes: generateRandomNumber(LIKES_RANGE_START_NUMBER, LIKES_RANGE_END_NUMBER),
       comments: generateComments()
     });
   }
@@ -62,14 +62,12 @@ function generateComments() {
   const comments = [];
 
   for (let i = 1; i <= commentsQuantity; i++) {
-    const avatarIndex = generateRandomNumber(avatarsRangeStartNumber, avatarsRangeEndNumber);
-    const messageIndex = generateRandomNumber(messagesRangeStartNumber, messagesRangeEndNumber);
-    const nameIndex = generateRandomNumber(namesRangeStartNumber, namesRangeEndNumber);
+    const avatarIndex = generateRandomNumber(AVATARS_RANGE_START_NUMBER, AVATARS_RANGE_END_NUMBER);
 
     comments.push({
       avatar: `img/avatar-${avatarIndex}.svg`,
-      message: getRandomArrayItem(messages, messageIndex),
-      name: getRandomArrayItem(names, nameIndex)
+      message: getRandomArrayItem(MESSAGES, MESSAGES_RANGE_START_NUMBER, MESSAGES_RANGE_END_NUMBER),
+      name: getRandomArrayItem(NAMES, NAMES_RANGE_START_NUMBER, NAMES_RANGE_END_NUMBER)
     });
   }
 
@@ -95,8 +93,10 @@ function fillDOMElement(template, itemData) {
   return template;
 }
 
-function getRandomArrayItem(array, arrayItemIndex) {
-  return array.find((item, index) => index === arrayItemIndex);
+function getRandomArrayItem(array, start, end) {
+  const randomIndex = generateRandomNumber(start, end);
+
+  return array.find((item, index) => index === randomIndex);
 }
 
 function fillBigPicture() {
