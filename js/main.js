@@ -1,10 +1,22 @@
 'use strict';
 
-const NAMES = [`Антон`, `Сергей`, `Дима`, `Павел`, `Иван`];
-const MESSAGES = [`Всё отлично!`, `В целом всё неплохо. Но не всё.`, `Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.`, `Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.`, `Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.`, `Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!`];
-const QUANTITY = 25;
-const FRAGMENT = document.createDocumentFragment();
-
+const names = [
+  `Антон`,
+  `Сергей`,
+  `Дима`,
+  `Павел`,
+  `Иван`
+];
+const messages = [
+  `Всё отлично!`,
+  `В целом всё неплохо. Но не всё.`,
+  `Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.`,
+  `Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.`,
+  `Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.`,
+  `Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!`
+];
+const objectsQuantity = 25;
+const fragment = document.createDocumentFragment();
 const parentEl = document.querySelector(`.pictures`);
 const templateEl = document.querySelector(`#picture`).content;
 const data = generateArray();
@@ -21,7 +33,7 @@ function generateNumber(min, max) {
 function generateArray() {
   const results = [];
 
-  for (let i = 1; i <= QUANTITY; i++) {
+  for (let i = 1; i <= objectsQuantity; i++) {
     results.push({
       url: `photos/${i}.jpg`,
       description: `описание фотографии`,
@@ -43,8 +55,8 @@ function generateComments() {
 
     comments.push({
       avatar: `img/avatar-${avatarIndex}.svg`,
-      message: MESSAGES[messageIndex],
-      name: NAMES[nameIndex]
+      message: messages[messageIndex],
+      name: names[nameIndex]
     });
   }
 
@@ -54,9 +66,9 @@ function generateComments() {
 function createDOMElements() {
   for (const item of data) {
     const pictureEl = fillDOMElement(templateEl.cloneNode(true), item);
-    FRAGMENT.appendChild(pictureEl);
+    fragment.appendChild(pictureEl);
   }
-  parentEl.appendChild(FRAGMENT);
+  parentEl.appendChild(fragment);
   return;
 }
 
