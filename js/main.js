@@ -32,7 +32,10 @@ const bigPictureEl = document.querySelector(`.big-picture`);
 const data = generateArray();
 
 createDOMElements();
-bigPictureEl.classList.remove(`hidden`);
+fillBigPicture();
+showBigPicture();
+document.body.classList.add(`modal-open`);
+
 
 function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -91,12 +94,26 @@ function fillDOMElement(template, itemData) {
 }
 
 function getRandomArrayItem(array, arrayItemIndex) {
-  return array.find((index) => index === arrayItemIndex);
+  return array.find((item, index) => index === arrayItemIndex);
+}
+
+function showBigPicture() {
+  bigPictureEl.classList.remove(`hidden`);
+}
+
+function fillBigPicture() {
+  const {url, likes, description, comments} = data[0];
+
+  bigPictureEl.querySelector(`.big-picture__img`).setAttribute(`src`, url);
+  bigPictureEl.querySelector(`.likes-count`).textContent = likes.length;
+  bigPictureEl.querySelector(`.social__caption`).textContent = description;
+  bigPictureEl.querySelector(`.comments-count`).textContent = comments.length;
+  bigPictureEl.querySelector(`.social__comments`).innerHTML = generateBigPictureCommentsLayout(comments);
 }
 
 function generateBigPictureCommentsLayout(array) {
   return array.map((item) => `<li class="social__comment">
     <img class="social__picture" src="${item.avatar}" alt="${item.name}" width="35" height="35">
     <p class="social__text">${item.message}</p>
-  </li>`).join(`, `);
+  </li>`).join(``);
 }
