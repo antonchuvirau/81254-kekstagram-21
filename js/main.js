@@ -33,7 +33,9 @@ const data = generateArray();
 
 createDOMElements();
 fillBigPicture();
-showBigPicture();
+bigPictureEl.classList.remove(`hidden`);
+document.querySelector(`.social__comment-count`).classList.add(`hidden`);
+document.querySelector(`.comments-loader`).classList.add(`hidden`);
 document.body.classList.add(`modal-open`);
 
 
@@ -95,10 +97,6 @@ function fillDOMElement(template, itemData) {
 
 function getRandomArrayItem(array, arrayItemIndex) {
   return array.find((item, index) => index === arrayItemIndex);
-}
-
-function showBigPicture() {
-  bigPictureEl.classList.remove(`hidden`);
 }
 
 function fillBigPicture() {
