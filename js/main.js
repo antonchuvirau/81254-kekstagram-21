@@ -61,7 +61,7 @@ function generateArray() {
 function generateComments() {
   const comments = [];
 
-  for (let i = 1; i <= commentsQuantity; i++) {
+  for (let i = 1; i <= COMMENTS_QUANTITY; i++) {
     const avatarIndex = generateRandomNumber(AVATARS_RANGE_START_NUMBER, AVATARS_RANGE_END_NUMBER);
 
     comments.push({
@@ -106,12 +106,38 @@ function fillBigPicture() {
   bigPictureEl.querySelector(`.likes-count`).textContent = likes.length;
   bigPictureEl.querySelector(`.social__caption`).textContent = description;
   bigPictureEl.querySelector(`.comments-count`).textContent = comments.length;
-  bigPictureEl.querySelector(`.social__comments`).innerHTML = generateBigPictureCommentsLayout(comments);
+  generateBigPictureCommentsLayout(comments);
+  bigPictureEl.querySelector(`.social__comments`).appendChild(fragment);
 }
 
 function generateBigPictureCommentsLayout(array) {
-  return array.map((item) => `<li class="social__comment">
-    <img class="social__picture" src="${item.avatar}" alt="${item.name}" width="35" height="35">
-    <p class="social__text">${item.message}</p>
-  </li>`).join(``);
+  for (const comment of array) {
+    const li = createDOMElement(`li`, `social__comment`);
+    const p = createDOMElement(`p`, `social__text`, comment.message);
+    const img = createDOMElement(`img`, `social__picture`, ``, [
+      {name: `src`, value: comment.avatar},
+      {name: `alt`, value: comment.name},
+      {name: `width`, value: 35},
+      {name: `height`, value: 35}
+    ]);
+    li.appendChild(img);
+    li.appendChild(p);
+    fragment.appendChild(li);
+  }
+}
+
+function createDOMElement(tagName, className, text = ``, params = []) {
+  const element = document.createElement(tagName);
+
+  element.classList.add(className);
+  if (text) {
+    element.textContent = text;
+  }
+  if (params.length) {
+    for (const item of params) {
+      element.setAttribute(item.name, item.value);
+    }
+  }
+
+  return element;
 }
