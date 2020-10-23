@@ -93,3 +93,10 @@ function fillDOMElement(template, itemData) {
 function getRandomArrayItem(array, arrayItemIndex) {
   return array.find((index) => index === arrayItemIndex);
 }
+
+function generateBigPictureCommentsLayout(array) {
+  return array.map((item) => `<li class="social__comment">
+    <img class="social__picture" src="${item.avatar}" alt="${item.name}" width="35" height="35">
+    <p class="social__text">${item.message}</p>
+  </li>`).join(`, `);
+}
