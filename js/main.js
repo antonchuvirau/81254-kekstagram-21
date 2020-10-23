@@ -61,8 +61,8 @@ function generateComments() {
 
     comments.push({
       avatar: `img/avatar-${avatarIndex}.svg`,
-      message: messages[messageIndex],
-      name: names[nameIndex]
+      message: getRandomArrayItem(messages, messageIndex),
+      name: getRandomArrayItem(names, nameIndex)
     });
   }
 
@@ -86,4 +86,8 @@ function fillDOMElement(template, itemData) {
   template.querySelector(`.picture__likes`).textContent = likes;
 
   return template;
+}
+
+function getRandomArrayItem(array, arrayItemIndex) {
+  return array.find((index) => index === arrayItemIndex);
 }
