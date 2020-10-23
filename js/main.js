@@ -15,6 +15,15 @@ const messages = [
   `Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.`,
   `Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!`
 ];
+const namesRangeStartNumber = 0;
+const namesRangeEndNumber = 5;
+const messagesRangeStartNumber = 0;
+const messagesRangeEndNumber = 5;
+const avatarsRangeStartNumber = 1;
+const avatarsRangeEndNumber = 6;
+const likesRangeStartNumber = 15;
+const likesRangeEndNumber = 200;
+const commentsQuantity = 6;
 const objectsQuantity = 25;
 const fragment = document.createDocumentFragment();
 const parentEl = document.querySelector(`.pictures`);
@@ -34,7 +43,7 @@ function generateArray() {
     results.push({
       url: `photos/${i}.jpg`,
       description: `описание фотографии`,
-      likes: generateRandomNumber(15, 200),
+      likes: generateRandomNumber(likesRangeStartNumber, likesRangeEndNumber),
       comments: generateComments()
     });
   }
@@ -45,10 +54,10 @@ function generateArray() {
 function generateComments() {
   const comments = [];
 
-  for (let i = 0; i < 6; i++) {
-    const avatarIndex = generateRandomNumber(1, 6);
-    const messageIndex = generateRandomNumber(0, 5);
-    const nameIndex = generateRandomNumber(0, 5);
+  for (let i = 1; i <= commentsQuantity; i++) {
+    const avatarIndex = generateRandomNumber(avatarsRangeStartNumber, avatarsRangeEndNumber);
+    const messageIndex = generateRandomNumber(messagesRangeStartNumber, messagesRangeEndNumber);
+    const nameIndex = generateRandomNumber(namesRangeStartNumber, namesRangeEndNumber);
 
     comments.push({
       avatar: `img/avatar-${avatarIndex}.svg`,
@@ -66,11 +75,11 @@ function createDOMElements() {
     fragment.appendChild(pictureEl);
   }
   parentEl.appendChild(fragment);
-  return;
 }
 
 function fillDOMElement(template, itemData) {
   const {url, description, comments, likes} = itemData;
+
   template.querySelector(`img`).setAttribute(`src`, url);
   template.querySelector(`img`).setAttribute(`alt`, description);
   template.querySelector(`.picture__comments`).textContent = comments.length;
