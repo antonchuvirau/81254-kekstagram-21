@@ -23,10 +23,7 @@ const data = generateArray();
 
 createDOMElements();
 
-function generateNumber(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-
+function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
@@ -37,7 +34,7 @@ function generateArray() {
     results.push({
       url: `photos/${i}.jpg`,
       description: `описание фотографии`,
-      likes: generateNumber(15, 200),
+      likes: generateRandomNumber(15, 200),
       comments: generateComments()
     });
   }
@@ -49,9 +46,9 @@ function generateComments() {
   const comments = [];
 
   for (let i = 0; i < 6; i++) {
-    const avatarIndex = generateNumber(1, 6);
-    const messageIndex = generateNumber(0, 5);
-    const nameIndex = generateNumber(0, 5);
+    const avatarIndex = generateRandomNumber(1, 6);
+    const messageIndex = generateRandomNumber(0, 5);
+    const nameIndex = generateRandomNumber(0, 5);
 
     comments.push({
       avatar: `img/avatar-${avatarIndex}.svg`,
