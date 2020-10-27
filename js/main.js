@@ -62,23 +62,24 @@ function generateComments(commentsDataQuantity) {
 }
 
 function renderPictures(data, container) {
+  const picturesFragment = document.createDocumentFragment();
   for (const pictureData of data) {
-    const pictureNode = createPictureElement(pictureTemplate, pictureData);
-    fragment.appendChild(pictureNode);
+    const pictureElement = createPictureElement(pictureTemplate, pictureData);
+    picturesFragment.appendChild(pictureElement);
   }
-  container.appendChild(fragment);
+  container.appendChild(picturesFragment);
 }
 
 function createPictureElement(template, data) {
   const {url, description, comments, likes} = data;
-  const duplicatedPictureNode = template.cloneNode(true);
+  const duplicatedPictureElement = template.cloneNode(true);
 
-  duplicatedPictureNode.querySelector(`img`).setAttribute(`src`, url);
-  duplicatedPictureNode.querySelector(`img`).setAttribute(`alt`, description);
-  duplicatedPictureNode.querySelector(`.picture__comments`).textContent = comments.length;
-  duplicatedPictureNode.querySelector(`.picture__likes`).textContent = likes;
+  duplicatedPictureElement.querySelector(`img`).setAttribute(`src`, url);
+  duplicatedPictureElement.querySelector(`img`).setAttribute(`alt`, description);
+  duplicatedPictureElement.querySelector(`.picture__comments`).textContent = comments.length;
+  duplicatedPictureElement.querySelector(`.picture__likes`).textContent = likes;
 
-  return duplicatedPictureNode;
+  return duplicatedPictureElement;
 }
 
 function getRandomItem(array) {
@@ -94,24 +95,26 @@ function renderBigPicture(data, container) {
   container.querySelector(`.likes-count`).textContent = likes.length;
   container.querySelector(`.social__caption`).textContent = description;
   container.querySelector(`.comments-count`).textContent = comments.length;
-  renderBigPictureComments(comments);
-  container.querySelector(`.social__comments`).appendChild(fragment);
+  const bitPictureComments = renderBigPictureComments(comments);
+  container.querySelector(`.social__comments`).appendChild(bitPictureComments);
 }
 
-function renderBigPictureComments(comments) {
-  for (const comment of comments) {
+function renderBigPictureComments(data) {
+  const bigPictureCommentsFragment = document.createDocumentFragment();
+  for (const commentData of data) {
     const li = createDOMElement(`li`, `social__comment`);
-    const p = createDOMElement(`p`, `social__text`, comment.message);
+    const p = createDOMElement(`p`, `social__text`, commentData.message);
     const img = createDOMElement(`img`, `social__picture`, ``, [
-      {name: `src`, value: comment.avatar},
-      {name: `alt`, value: comment.name},
+      {name: `src`, value: commentData.avatar},
+      {name: `alt`, value: commentData.name},
       {name: `width`, value: 35},
       {name: `height`, value: 35}
     ]);
     li.appendChild(img);
     li.appendChild(p);
-    fragment.appendChild(li);
+    bigPictureCommentsFragment.appendChild(li);
   }
+  return bigPictureCommentsFragment;
 }
 
 function createDOMElement(tagName, className = ``, text = ``, params = []) {
