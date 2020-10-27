@@ -15,8 +15,8 @@ const MESSAGES = [
   `Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.`,
   `Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!`
 ];
-const AVATARS_RANGE_START_NUMBER = 1;
-const AVATARS_RANGE_END_NUMBER = 6;
+const MIN_AVATAR_COUNT = 1;
+const MAX_AVATAR_COUNT = 6;
 const MIN_LIKES_COUNT = 15;
 const MAX_LIKES_COUNT = 200;
 const COMMENTS_DATA_QUANTITY = 6;
@@ -49,7 +49,7 @@ function generateComments(commentsDataQuantity) {
   const comments = [];
 
   for (let i = 1; i <= commentsDataQuantity; i++) {
-    const avatarIndex = generateRandomNumber(AVATARS_RANGE_START_NUMBER, AVATARS_RANGE_END_NUMBER);
+    const avatarIndex = generateRandomNumber(MIN_AVATAR_COUNT, MAX_AVATAR_COUNT);
 
     comments.push({
       avatar: `img/avatar-${avatarIndex}.svg`,
