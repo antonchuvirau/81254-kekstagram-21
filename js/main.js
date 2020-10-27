@@ -62,7 +62,7 @@ function generateComments(commentsDataQuantity) {
 }
 
 function renderComments() {
-  for (const item of data) {
+  for (const item of photosArray) {
     const pictureEl = fillDOMElement(templateEl.cloneNode(true), item);
     fragment.appendChild(pictureEl);
   }
@@ -87,7 +87,7 @@ function getRandomArrayItem(array) {
 }
 
 function fillBigPicture() {
-  const {url, likes, description, comments} = data[0];
+  const {url, likes, description, comments} = photosArray[0];
 
   bigPictureEl.querySelector(`.big-picture__img`).setAttribute(`src`, url);
   bigPictureEl.querySelector(`.likes-count`).textContent = likes.length;
@@ -131,7 +131,7 @@ function createDOMElement(tagName, className = ``, text = ``, params = []) {
   return element;
 }
 
-const data = generatePhotosArray(PHOTOS_QUANTITY);
+const photosArray = generatePhotosArray(PHOTOS_QUANTITY);
 renderComments();
 fillBigPicture();
 bigPictureEl.classList.remove(`hidden`);
