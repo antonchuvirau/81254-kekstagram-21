@@ -96,7 +96,7 @@ function fillDOMElement(template, itemData) {
 function getRandomArrayItem(array, start, end) {
   const randomIndex = generateRandomNumber(start, end);
 
-  return array.find((item, index) => index === randomIndex);
+  return array[randomIndex];
 }
 
 function fillBigPicture() {
