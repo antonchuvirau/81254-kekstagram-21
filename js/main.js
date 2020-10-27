@@ -20,12 +20,12 @@ const AVATARS_RANGE_END_NUMBER = 6;
 const MIN_LIKES_COUNT = 15;
 const MAX_LIKES_COUNT = 200;
 const COMMENTS_DATA_QUANTITY = 6;
-const OBJECTS_QUANTITY = 25;
+const PHOTOS_QUANTITY = 25;
 const fragment = document.createDocumentFragment();
 const parentEl = document.querySelector(`.pictures`);
 const templateEl = document.querySelector(`#picture`).content;
 const bigPictureEl = document.querySelector(`.big-picture`);
-const data = generateArray();
+const data = generatePhotosArray(PHOTOS_QUANTITY);
 
 renderComments();
 fillBigPicture();
@@ -39,10 +39,10 @@ function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function generateArray() {
+function generatePhotosArray(photosQuantity) {
   const results = [];
 
-  for (let i = 1; i <= OBJECTS_QUANTITY; i++) {
+  for (let i = 1; i <= photosQuantity; i++) {
     results.push({
       url: `photos/${i}.jpg`,
       description: `описание фотографии`,
