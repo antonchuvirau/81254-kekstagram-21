@@ -61,16 +61,16 @@ function generateComments(commentsDataQuantity) {
   return comments;
 }
 
-function renderComments() {
-  for (const item of photosArray) {
-    const pictureEl = fillDOMElement(templateEl.cloneNode(true), item);
+function renderComments(photosArray) {
+  for (const photoObject of photosArray) {
+    const pictureEl = fillDOMElement(templateEl.cloneNode(true), photoObject);
     fragment.appendChild(pictureEl);
   }
   parentEl.appendChild(fragment);
 }
 
-function fillDOMElement(template, itemData) {
-  const {url, description, comments, likes} = itemData;
+function fillDOMElement(template, photoObject) {
+  const {url, description, comments, likes} = photoObject;
 
   template.querySelector(`img`).setAttribute(`src`, url);
   template.querySelector(`img`).setAttribute(`alt`, description);
@@ -93,12 +93,12 @@ function fillBigPicture() {
   bigPictureEl.querySelector(`.likes-count`).textContent = likes.length;
   bigPictureEl.querySelector(`.social__caption`).textContent = description;
   bigPictureEl.querySelector(`.comments-count`).textContent = comments.length;
-  generateBigPictureCommentsLayout(comments);
+  renderBigPictureComments(comments);
   bigPictureEl.querySelector(`.social__comments`).appendChild(fragment);
 }
 
-function generateBigPictureCommentsLayout(array) {
-  for (const comment of array) {
+function renderBigPictureComments(comments) {
+  for (const comment of comments) {
     const li = createDOMElement(`li`, `social__comment`);
     const p = createDOMElement(`p`, `social__text`, comment.message);
     const img = createDOMElement(`img`, `social__picture`, ``, [
@@ -132,7 +132,7 @@ function createDOMElement(tagName, className = ``, text = ``, params = []) {
 }
 
 const photosArray = generatePhotosArray(PHOTOS_QUANTITY);
-renderComments();
+renderComments(photosArray);
 fillBigPicture();
 bigPictureEl.classList.remove(`hidden`);
 document.querySelector(`.social__comment-count`).classList.add(`hidden`);
