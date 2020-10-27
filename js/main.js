@@ -61,23 +61,24 @@ function generateComments(commentsDataQuantity) {
   return comments;
 }
 
-function createPictureElement(template, data) {
-  const {url, description, comments, likes} = data;
-
-  template.querySelector(`img`).setAttribute(`src`, url);
-  template.querySelector(`img`).setAttribute(`alt`, description);
-  template.querySelector(`.picture__comments`).textContent = comments.length;
-  template.querySelector(`.picture__likes`).textContent = likes;
-
-  return template;
-}
-
 function renderPictures(data, container) {
   for (const pictureData of data) {
-    const pictureElement = createPictureElement(pictureTemplate, pictureData);
-    fragment.appendChild(pictureElement);
+    const pictureNode = createPictureElement(pictureTemplate, pictureData);
+    fragment.appendChild(pictureNode);
   }
   container.appendChild(fragment);
+}
+
+function createPictureElement(template, data) {
+  const {url, description, comments, likes} = data;
+  const duplicatedPictureNode = template.cloneNode(true);
+
+  duplicatedPictureNode.querySelector(`img`).setAttribute(`src`, url);
+  duplicatedPictureNode.querySelector(`img`).setAttribute(`alt`, description);
+  duplicatedPictureNode.querySelector(`.picture__comments`).textContent = comments.length;
+  duplicatedPictureNode.querySelector(`.picture__likes`).textContent = likes;
+
+  return duplicatedPictureNode;
 }
 
 function getRandomItem(array) {
@@ -134,7 +135,7 @@ function createDOMElement(tagName, className = ``, text = ``, params = []) {
 const picturesData = generatePicturesData(PICTURES_DATA_QUANTITY);
 renderPictures(picturesData, picturesContainer);
 renderBigPicture(picturesData, bigPictureContainer);
-bigPictureEl.classList.remove(`hidden`);
+bigPictureContainer.classList.remove(`hidden`);
 document.querySelector(`.social__comment-count`).classList.add(`hidden`);
 document.querySelector(`.comments-loader`).classList.add(`hidden`);
 document.body.classList.add(`modal-open`);
