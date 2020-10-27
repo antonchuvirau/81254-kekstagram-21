@@ -17,9 +17,9 @@ const MESSAGES = [
 ];
 const AVATARS_RANGE_START_NUMBER = 1;
 const AVATARS_RANGE_END_NUMBER = 6;
-const LIKES_RANGE_START_NUMBER = 15;
-const LIKES_RANGE_END_NUMBER = 200;
-const COMMENTS_QUANTITY = 6;
+const MIN_LIKES_COUNT = 15;
+const MAX_LIKES_COUNT = 200;
+const COMMENTS_DATA_QUANTITY = 6;
 const OBJECTS_QUANTITY = 25;
 const fragment = document.createDocumentFragment();
 const parentEl = document.querySelector(`.pictures`);
@@ -46,18 +46,18 @@ function generateArray() {
     results.push({
       url: `photos/${i}.jpg`,
       description: `описание фотографии`,
-      likes: generateRandomNumber(LIKES_RANGE_START_NUMBER, LIKES_RANGE_END_NUMBER),
-      comments: generateComments()
+      likes: generateRandomNumber(MIN_LIKES_COUNT, MAX_LIKES_COUNT),
+      comments: generateComments(COMMENTS_DATA_QUANTITY)
     });
   }
 
   return results;
 }
 
-function generateComments() {
+function generateComments(commentsDataQuantity) {
   const comments = [];
 
-  for (let i = 1; i <= COMMENTS_QUANTITY; i++) {
+  for (let i = 1; i <= commentsDataQuantity; i++) {
     const avatarIndex = generateRandomNumber(AVATARS_RANGE_START_NUMBER, AVATARS_RANGE_END_NUMBER);
 
     comments.push({
