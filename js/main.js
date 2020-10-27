@@ -25,15 +25,6 @@ const fragment = document.createDocumentFragment();
 const parentEl = document.querySelector(`.pictures`);
 const templateEl = document.querySelector(`#picture`).content;
 const bigPictureEl = document.querySelector(`.big-picture`);
-const data = generatePhotosArray(PHOTOS_QUANTITY);
-
-renderComments();
-fillBigPicture();
-bigPictureEl.classList.remove(`hidden`);
-document.querySelector(`.social__comment-count`).classList.add(`hidden`);
-document.querySelector(`.comments-loader`).classList.add(`hidden`);
-document.body.classList.add(`modal-open`);
-
 
 function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -139,3 +130,11 @@ function createDOMElement(tagName, className = ``, text = ``, params = []) {
 
   return element;
 }
+
+const data = generatePhotosArray(PHOTOS_QUANTITY);
+renderComments();
+fillBigPicture();
+bigPictureEl.classList.remove(`hidden`);
+document.querySelector(`.social__comment-count`).classList.add(`hidden`);
+document.querySelector(`.comments-loader`).classList.add(`hidden`);
+document.body.classList.add(`modal-open`);
