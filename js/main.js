@@ -21,7 +21,6 @@ const MIN_LIKES_COUNT = 15;
 const MAX_LIKES_COUNT = 200;
 const COMMENTS_DATA_QUANTITY = 6;
 const PICTURES_DATA_QUANTITY = 25;
-const fragment = document.createDocumentFragment();
 const picturesContainer = document.querySelector(`.pictures`);
 const pictureTemplate = document.querySelector(`#picture`).content;
 const bigPictureContainer = document.querySelector(`.big-picture`);
@@ -38,17 +37,17 @@ function generatePicturesData(quantity) {
       url: `photos/${i}.jpg`,
       description: `описание фотографии`,
       likes: generateRandomNumber(MIN_LIKES_COUNT, MAX_LIKES_COUNT),
-      comments: generateComments(COMMENTS_DATA_QUANTITY)
+      comments: generateCommentsData(COMMENTS_DATA_QUANTITY)
     });
   }
 
   return results;
 }
 
-function generateComments(commentsDataQuantity) {
+function generateCommentsData(quantity) {
   const comments = [];
 
-  for (let i = 1; i <= commentsDataQuantity; i++) {
+  for (let i = 1; i <= quantity; i++) {
     const avatarIndex = generateRandomNumber(MIN_AVATAR_COUNT, MAX_AVATAR_COUNT);
 
     comments.push({
@@ -95,8 +94,8 @@ function renderBigPicture(data, container) {
   container.querySelector(`.likes-count`).textContent = likes.length;
   container.querySelector(`.social__caption`).textContent = description;
   container.querySelector(`.comments-count`).textContent = comments.length;
-  const bitPictureComments = renderBigPictureComments(comments);
-  container.querySelector(`.social__comments`).appendChild(bitPictureComments);
+  const bigPictureComments = renderBigPictureComments(comments);
+  container.querySelector(`.social__comments`).appendChild(bigPictureComments);
 }
 
 function renderBigPictureComments(data) {
