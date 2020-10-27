@@ -20,20 +20,20 @@ const MAX_AVATAR_COUNT = 6;
 const MIN_LIKES_COUNT = 15;
 const MAX_LIKES_COUNT = 200;
 const COMMENTS_DATA_QUANTITY = 6;
-const PHOTOS_QUANTITY = 25;
+const PICTURES_DATA_QUANTITY = 25;
 const fragment = document.createDocumentFragment();
-const parentEl = document.querySelector(`.pictures`);
-const templateEl = document.querySelector(`#picture`).content;
+const picturesRootEl = document.querySelector(`.pictures`);
+const pictureTemplate = document.querySelector(`#picture`).content;
 const bigPictureEl = document.querySelector(`.big-picture`);
 
 function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function generatePhotosArray(photosQuantity) {
+function generatePicturesArray(picturesQuantity) {
   const results = [];
 
-  for (let i = 1; i <= photosQuantity; i++) {
+  for (let i = 1; i <= picturesQuantity; i++) {
     results.push({
       url: `photos/${i}.jpg`,
       description: `описание фотографии`,
@@ -61,23 +61,23 @@ function generateComments(commentsDataQuantity) {
   return comments;
 }
 
-function renderComments(photosArray) {
-  for (const photoObject of photosArray) {
-    const pictureEl = fillDOMElement(templateEl.cloneNode(true), photoObject);
-    fragment.appendChild(pictureEl);
-  }
-  parentEl.appendChild(fragment);
+function createPictureElement(pictureTemplate, pictureObject) {
+  const {url, description, comments, likes} = pictureObject;
+
+  pictureTemplate.querySelector(`img`).setAttribute(`src`, url);
+  pictureTemplate.querySelector(`img`).setAttribute(`alt`, description);
+  pictureTemplate.querySelector(`.picture__comments`).textContent = comments.length;
+  pictureTemplate.querySelector(`.picture__likes`).textContent = likes;
+
+  return pictureTemplate;
 }
 
-function fillDOMElement(template, photoObject) {
-  const {url, description, comments, likes} = photoObject;
-
-  template.querySelector(`img`).setAttribute(`src`, url);
-  template.querySelector(`img`).setAttribute(`alt`, description);
-  template.querySelector(`.picture__comments`).textContent = comments.length;
-  template.querySelector(`.picture__likes`).textContent = likes;
-
-  return template;
+function renderPictures(picturesArray, picturesRootEl) {
+  for (const pictureObject of picturesArray) {
+    const pictureElement = createPictureElement(pictureTemplate, pictureObject);
+    fragment.appendChild(pictureElement);
+  }
+  picturesRootEl.appendChild(fragment);
 }
 
 function getRandomArrayItem(array) {
@@ -86,8 +86,8 @@ function getRandomArrayItem(array) {
   return array[randomIndex];
 }
 
-function fillBigPicture() {
-  const {url, likes, description, comments} = photosArray[0];
+function renderBigPicture(picturesArray) {
+  const {url, likes, description, comments} = picturesArray[0];
 
   bigPictureEl.querySelector(`.big-picture__img`).setAttribute(`src`, url);
   bigPictureEl.querySelector(`.likes-count`).textContent = likes.length;
@@ -131,9 +131,9 @@ function createDOMElement(tagName, className = ``, text = ``, params = []) {
   return element;
 }
 
-const photosArray = generatePhotosArray(PHOTOS_QUANTITY);
-renderComments(photosArray);
-fillBigPicture();
+const picturesData = generatePicturesData(PICTURES_DATA_QUANTITY);
+renderPictures(pictures, picturesRootEl);
+renderBigPicture(picturesArray);
 bigPictureEl.classList.remove(`hidden`);
 document.querySelector(`.social__comment-count`).classList.add(`hidden`);
 document.querySelector(`.comments-loader`).classList.add(`hidden`);
