@@ -15,10 +15,6 @@ const MESSAGES = [
   `Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.`,
   `Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!`
 ];
-const NAMES_RANGE_START_NUMBER = 0;
-const NAMES_RANGE_END_NUMBER = 5;
-const MESSAGES_RANGE_START_NUMBER = 0;
-const MESSAGES_RANGE_END_NUMBER = 5;
 const AVATARS_RANGE_START_NUMBER = 1;
 const AVATARS_RANGE_END_NUMBER = 6;
 const LIKES_RANGE_START_NUMBER = 15;
@@ -31,7 +27,7 @@ const templateEl = document.querySelector(`#picture`).content;
 const bigPictureEl = document.querySelector(`.big-picture`);
 const data = generateArray();
 
-createDOMElements();
+renderComments();
 fillBigPicture();
 bigPictureEl.classList.remove(`hidden`);
 document.querySelector(`.social__comment-count`).classList.add(`hidden`);
@@ -66,15 +62,15 @@ function generateComments() {
 
     comments.push({
       avatar: `img/avatar-${avatarIndex}.svg`,
-      message: getRandomArrayItem(MESSAGES, MESSAGES_RANGE_START_NUMBER, MESSAGES_RANGE_END_NUMBER),
-      name: getRandomArrayItem(NAMES, NAMES_RANGE_START_NUMBER, NAMES_RANGE_END_NUMBER)
+      message: getRandomArrayItem(MESSAGES),
+      name: getRandomArrayItem(NAMES)
     });
   }
 
   return comments;
 }
 
-function createDOMElements() {
+function renderComments() {
   for (const item of data) {
     const pictureEl = fillDOMElement(templateEl.cloneNode(true), item);
     fragment.appendChild(pictureEl);
@@ -93,8 +89,8 @@ function fillDOMElement(template, itemData) {
   return template;
 }
 
-function getRandomArrayItem(array, start, end) {
-  const randomIndex = generateRandomNumber(start, end);
+function getRandomArrayItem(array) {
+  const randomIndex = generateRandomNumber(0, array.length);
 
   return array[randomIndex];
 }
