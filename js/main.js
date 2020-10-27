@@ -61,23 +61,23 @@ function generateComments(commentsDataQuantity) {
   return comments;
 }
 
-function createPictureElement(pictureTemplate, pictureObject) {
-  const {url, description, comments, likes} = pictureObject;
+function createPictureElement(template, data) {
+  const {url, description, comments, likes} = data;
 
-  pictureTemplate.querySelector(`img`).setAttribute(`src`, url);
-  pictureTemplate.querySelector(`img`).setAttribute(`alt`, description);
-  pictureTemplate.querySelector(`.picture__comments`).textContent = comments.length;
-  pictureTemplate.querySelector(`.picture__likes`).textContent = likes;
+  template.querySelector(`img`).setAttribute(`src`, url);
+  template.querySelector(`img`).setAttribute(`alt`, description);
+  template.querySelector(`.picture__comments`).textContent = comments.length;
+  template.querySelector(`.picture__likes`).textContent = likes;
 
-  return pictureTemplate;
+  return template;
 }
 
-function renderPictures(picturesArray, picturesRootEl) {
-  for (const pictureObject of picturesArray) {
-    const pictureElement = createPictureElement(pictureTemplate, pictureObject);
+function renderPictures(data, container) {
+  for (const pictureData of data) {
+    const pictureElement = createPictureElement(pictureTemplate, pictureData);
     fragment.appendChild(pictureElement);
   }
-  picturesRootEl.appendChild(fragment);
+  container.appendChild(fragment);
 }
 
 function getRandomArrayItem(array) {
