@@ -126,10 +126,12 @@ function generateBigPictureCommentsLayout(array) {
   }
 }
 
-function createDOMElement(tagName, className, text = ``, params = []) {
+function createDOMElement(tagName, className = ``, text = ``, params = []) {
   const element = document.createElement(tagName);
 
-  element.classList.add(className);
+  if (className) {
+    element.classList.add(className);
+  }
   if (text) {
     element.textContent = text;
   }
