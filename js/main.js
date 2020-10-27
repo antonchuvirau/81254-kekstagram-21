@@ -24,7 +24,7 @@ const PICTURES_DATA_QUANTITY = 25;
 const fragment = document.createDocumentFragment();
 const picturesContainer = document.querySelector(`.pictures`);
 const pictureTemplate = document.querySelector(`#picture`).content;
-const bigPictureEl = document.querySelector(`.big-picture`);
+const bigPictureContainer = document.querySelector(`.big-picture`);
 
 function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -53,8 +53,8 @@ function generateComments(commentsDataQuantity) {
 
     comments.push({
       avatar: `img/avatar-${avatarIndex}.svg`,
-      message: getRandomArrayItem(MESSAGES),
-      name: getRandomArrayItem(NAMES)
+      message: getRandomItem(MESSAGES),
+      name: getRandomItem(NAMES)
     });
   }
 
@@ -80,21 +80,21 @@ function renderPictures(data, container) {
   container.appendChild(fragment);
 }
 
-function getRandomArrayItem(array) {
+function getRandomItem(array) {
   const randomIndex = generateRandomNumber(0, array.length);
 
   return array[randomIndex];
 }
 
-function renderBigPicture(picturesArray) {
-  const {url, likes, description, comments} = picturesArray[0];
+function renderBigPicture(data, container) {
+  const {url, likes, description, comments} = data[0];
 
-  bigPictureEl.querySelector(`.big-picture__img`).setAttribute(`src`, url);
-  bigPictureEl.querySelector(`.likes-count`).textContent = likes.length;
-  bigPictureEl.querySelector(`.social__caption`).textContent = description;
-  bigPictureEl.querySelector(`.comments-count`).textContent = comments.length;
+  container.querySelector(`.big-picture__img`).setAttribute(`src`, url);
+  container.querySelector(`.likes-count`).textContent = likes.length;
+  container.querySelector(`.social__caption`).textContent = description;
+  container.querySelector(`.comments-count`).textContent = comments.length;
   renderBigPictureComments(comments);
-  bigPictureEl.querySelector(`.social__comments`).appendChild(fragment);
+  container.querySelector(`.social__comments`).appendChild(fragment);
 }
 
 function renderBigPictureComments(comments) {
@@ -133,7 +133,7 @@ function createDOMElement(tagName, className = ``, text = ``, params = []) {
 
 const picturesData = generatePicturesData(PICTURES_DATA_QUANTITY);
 renderPictures(picturesData, picturesContainer);
-renderBigPicture(picturesArray);
+renderBigPicture(picturesData, bigPictureContainer);
 bigPictureEl.classList.remove(`hidden`);
 document.querySelector(`.social__comment-count`).classList.add(`hidden`);
 document.querySelector(`.comments-loader`).classList.add(`hidden`);
