@@ -22,7 +22,7 @@ const MAX_LIKES_COUNT = 200;
 const COMMENTS_DATA_QUANTITY = 6;
 const PICTURES_DATA_QUANTITY = 25;
 const fragment = document.createDocumentFragment();
-const picturesRootEl = document.querySelector(`.pictures`);
+const picturesContainer = document.querySelector(`.pictures`);
 const pictureTemplate = document.querySelector(`#picture`).content;
 const bigPictureEl = document.querySelector(`.big-picture`);
 
@@ -30,10 +30,10 @@ function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function generatePicturesArray(picturesQuantity) {
+function generatePicturesData(quantity) {
   const results = [];
 
-  for (let i = 1; i <= picturesQuantity; i++) {
+  for (let i = 1; i <= quantity; i++) {
     results.push({
       url: `photos/${i}.jpg`,
       description: `описание фотографии`,
@@ -132,7 +132,7 @@ function createDOMElement(tagName, className = ``, text = ``, params = []) {
 }
 
 const picturesData = generatePicturesData(PICTURES_DATA_QUANTITY);
-renderPictures(pictures, picturesRootEl);
+renderPictures(picturesData, picturesContainer);
 renderBigPicture(picturesArray);
 bigPictureEl.classList.remove(`hidden`);
 document.querySelector(`.social__comment-count`).classList.add(`hidden`);
